@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        .pic{
+            width: 600px;
+            height: 900px;
+            margin: 10px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content {
+            width: 99999px;
+            height: 900px;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+
+        .content img {
+            width: 600px;
+            height: 900px;
+            float: left;
+        }
+        .index {
+            position: absolute;
+            left:50%;
+            margin-left:-120px;
+            bottom: 5px;
+            width: 240px;
+            height: 20px;
+            list-style: none;
+            text-align: center;
+        }
+
+        .index li {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #e4b9b9;
+            float: left;
+            margin-left:10px;
+        }
+        .index li.first {
+            background-color: red;
+        }
+
+        .btn {
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height:40px;
+            margin-top: -20px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: 800;
+            background-color: #000000;
+            opacity:.6;
+            filter: alpha(opacity=60);
+            display: none;
+            color: #fff;
+        }
+
+        .left{
+            left:10px;
+        }
+        .right {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="pic">
+    <div class="content">
+        <img src="../img/js1.png" alt="">
+        <img src="../img/js2.png" alt="">
+        <img src="../img/js3.png" alt="">
+        <img src="../img/js4.png" alt="">
+        <img src="../img/js5.png" alt="">
+        <img src="../img/js6.png" alt="">
+        <img src="../img/js7.png" alt="">
+        <img src="../img/js8.png" alt="">
+    </div>
+
+    <ul class="index">
+        <li class="first"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div class="btn left">&lt;</div>
+    <div class="btn right">&gt;</div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        /*var imgWidth = $('.content img').eq(0).width();
+        // 定时器
+        var timer = setInterval(picLoop, 2000);
+        var index = 0;
+        function picLoop() {
+            index++;
+            if (index == 8) {
+                index = 0;
+            }
+            $('.content').stop().animate({
+                left: -imgWidth * index
+            }, 1000);
+            $('.index li').eq(index).addClass('first').siblings().removeClass('first');
+        }
+
+        $('.pic').hover(function () {
+            clearInterval(timer);
+            $('.left').show();
+            $('.right').show();
+        }, function () {
+            timer = setInterval(picLoop, 2000);
+            $('.left').hide();
+            $('.right').hide();
+        });
+        
+        $('li').on('mouseover', function () {
+            $(this).addClass('first').siblings().removeClass('first');
+            index = $(this).index();
+            $('.content').stop().animate({
+                left: -index * imgWidth
+            }, 300)
+        });
+
+        $('.left').click(function () {
+            index--;
+            if (index == -1){
+                index = 7;
+            }
+            $('.content').stop().animate({
+                left: -index * imgWidth
+            });
+            $('li').eq(index).addClass('first').siblings().removeClass('first');
+        });
+        $('.right').click(function () {
+            index++;
+            if (index == 8){
+                index = 0;
+            }
+            $('.content').stop().animate({
+                left: -index * imgWidth
+            });
+            $('li').eq(index).addClass('first').siblings().removeClass('first');
+        });*/
+
+        var imgWidth = $('.content img').eq(0).width(),
+            timer = null,index = 0;
+        timer = setInterval(go, 2000);
+        function go() {
+            index++;
+            selectPic();
+        }
+
+        function selectPic() {
+            if (index === 8) {
+                index = 0;
+            }
+            if (index === -1) {
+                index = 7;
+            }
+
+            $('.content').stop().animate({
+                left: -imgWidth * index
+            }, 1000);
+            $('li').eq(index).addClass('first').siblings().removeClass('first');
+        }
+
+        $('.pic').hover(function () {
+            clearInterval(timer);
+            $('.left').show();
+            $('.right').show();
+        }, function () {
+            timer = setInterval(go, 2000);
+            $('.left').hide();
+            $('.right').hide();
+        });
+
+        $('li').on('mouseover', function () {
+            index = $(this).index();
+            selectPic()
+        });
+
+        $('.left').on('click', function () {
+            index--;
+            selectPic();
+        });
+
+        $('.right').on('click', function () {
+            index++;
+            selectPic();
+        });
+    })
+</script>
+</body>
+</html>
